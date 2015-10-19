@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <div class="wrap">
+            <div>
+                    {%if user == null%}
+                        <a href="/login">Login</a>
+                    {% else %}
+                        <a href="/logout">Logout</a>
+                    {% endif %}                
+            </div>
+            <div id="categories">
+                    {%if user != null%}
+                        <a href="/admin/add/category">[add]</a>
+                    {% endif %}
+                    <p>Categories:</p>
+                    <ul>
+                            <li><a href="/">All</a></li>
+                                    {% for one in categories %}
+                                    <li>
+                                            <a href='/i/{{one.name}}'>{{one.name}}</a>
+                                            {%if user != null%}
+                                                <a href="/admin/edit/category/{{one.id}}">
+                                                        <img src="/sf/edit.png">
+                                                </a>
+                                            {% endif %}
+                                    </li>
+                            {%endfor%}
+                    </ul>
+            </div>
+            <div id="products">
+                    {% if user != null%}
+                        <a href="/admin/add/product">[add]</a>
+                    {% endif %}
+                    <p>Products:</p>
+                    <ul>
+                            {% for one in products %}
+                                <li>
+                                        {{one.name}} 
+                                        {%if user != null%}
+                                            <a href="/admin/edit/product/{{one.id}}">
+                                                    <img src="/sf/edit.png">
+                                            </a>
+                                        {%endif%}
+                                </li>
+                            {%endfor%}
+                            {% if pages > 1  %}
+                                {% for page in 1..pages%}
+                                    <a href="?page={{page}}">{{page}}</a>
+                                {%endfor%}
+                            {%endif%}
+                    </ul> 
+            </div>
+    </div>
+{% endblock %}

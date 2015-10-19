@@ -1,0 +1,37 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Admin > {{action}} {{type}}{% endblock %}
+
+{% block body %}
+    <h3>{{action}}ing new {{type}}:</h3>
+    <span style="color:red">{{message}}</span>
+    <form method="post" action="/admin/processing" onsubmit="return confirm('Confirm?')">
+            {% if item == null %}
+                <input type="text" name="name">
+            {%else%}
+                <input type="text" class="" name="name" value="{{item.name}}">
+            {%endif%}
+            {% if categories|length %}
+                <select name='category'>
+                        {% for one in categories %}
+                             
+                            <option value='{{one.id}}'
+                                    {% if item != null and item.category.id == one.id %}
+                                        selected
+                                    {% endif %}
+                                    >{{one.name}}</option>
+                        {% endfor %}
+                </select>
+            {% endif %}   
+            <input type='hidden' name='type' value='{{type}}'><br>
+            {% if item != null %}
+                <input type='hidden' name='id' value='{{item.id}}'><br>
+            {%endif%}
+            <input type="submit" name='submit' value="{{action|title}}">
+            {% if action == 'edit' %}
+                <input type="submit" name='submit' value="Remove">
+            {%endif%}
+            <input type="button" value="Cancel" onclick="window.location.href = '/';">
+    </form>
+            {#{ dump(item) }#}
+{% endblock %}

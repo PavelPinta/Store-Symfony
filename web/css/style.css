@@ -1,0 +1,13 @@
+* {
+   
+}
+
+#categories{
+    float: left;
+    width: 30%;
+}
+
+#products {
+    float: right;
+    width: 65%;
+}

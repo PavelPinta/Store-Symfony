@@ -1,0 +1,48 @@
+<?php
+
+namespace StoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * Employer
+ *
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="employer")
+ * @ORM\Entity
+ */
+class Employer
+{
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255, nullable = true)
+     */
+    private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="StoreBundle\Entity\Cases", mappedBy="user_id", cascade={"all"}, orphanRemoval=true)
+     *
+     * @var ArrayCollection $cases
+     */
+    public $cases;
+
+
+
+    public function __construct()
+    {
+        $this->cases = new ArrayCollection();
+    }
+ 
+}

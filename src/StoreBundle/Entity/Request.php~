@@ -1,0 +1,32 @@
+<?php
+
+namespace StoreBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="requests")
+ */
+class Request {
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    public $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="Request")
+     * @ORM\JoinColumn(name="user", referencedColumnName="id")
+     */
+    public $user;
+
+    /**
+     * @ORM\Column(type="datetime", name="request_date", nullable=false)
+     */
+    public $requestDate;
+
+}
